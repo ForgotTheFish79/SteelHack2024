@@ -8,7 +8,6 @@ class Student:
         self.year = year
         self.major = major
 
-
     # create getters and setters for each variable
     # courses
     def get_courses(self):
