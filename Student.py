@@ -1,12 +1,15 @@
 class Student:
-    # Student constructor
+    # Student constructors
+    # lets year & major be optional fields
     def __init__(self, courses, study_time, name, year=0, major=""):
         self.courses = courses
         self.study_time = study_time
         self.name = name
+        self.year = year
+        self.major = major
 
-    # create getters and setters for each variable:
-    
+
+    # create getters and setters for each variable
     # courses
     def get_courses(self):
         return self.courses
@@ -41,4 +44,3 @@ class Student:
     
     def set_major(self, new_major):
         self.major = new_major   
-    
