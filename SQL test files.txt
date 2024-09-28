@@ -1,0 +1,47 @@
+-- choose all Bio students
+SELECT * FROM students WHERE major = 'Biology';
+
+-- get all students
+SELECT * FROM students;
+
+
+-- select student by name
+
+SELECT * FROM students
+WHERE name = 'Alice Johnson';
+
+
+-- select student from year
+
+SELECT * FROM students
+WHERE year = '2024';
+
+-- get students and intersts
+
+SELECT s.name, s.major, i.interest_name
+FROM students s
+         JOIN student_interests si ON s.id = si.student_id
+         JOIN interests i ON si.interest_id = i.id;
+
+
+-- get course from student name
+SELECT s.name, c.course_name
+FROM students s
+         JOIN student_courses sc ON s.id = sc.student_id
+         JOIN courses c ON sc.course_id = c.id
+WHERE s.name = 'Alice Johnson';
+-- aquire interset from name
+
+SELECT s.name, i.interest_name
+FROM students s
+         JOIN student_interests si ON s.id = si.student_id
+         JOIN interests i ON si.interest_id = i.id
+WHERE s.name = 'Alice Johnson';
+
+-- get students  from  Interest
+
+SELECT s.name, s.major
+FROM students s
+         JOIN student_interests si ON s.id = si.student_id
+         JOIN interests i ON si.interest_id = i.id
+WHERE i.interest_name = 'Gaming';
