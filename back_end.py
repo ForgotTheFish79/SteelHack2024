@@ -37,10 +37,9 @@ year = 0
 interests = ""
 courses = []
 
-
-# handle POST requests (when the submit button is clicked)
-@app.route('/submit', methods=['POST'])
-def submit():
+# creates user profile when button is clicked
+@app.route('/create_profile', methods=['POST'])
+def create_profile():
     # get form data
     name = request.form['username']
     email = request.form['email']
@@ -48,7 +47,6 @@ def submit():
     year = request.form['year']
     interests = request.form['interests']
     courses = request.form['courses']
-    print(f'Received data: {data}')  # Print data to the console
     return f"Profile created for {name} with email {email}. Major: {major}, 
              Year: {year}, Interests: {interests}, Courses: {courses}."
 
