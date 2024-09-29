@@ -19,18 +19,15 @@
         body {
             font-family: Calibri, 'Trebuchet MS', sans-serif;
             background-color: powderblue;
-            background-image: url("StockSnap_UYBA4SDOBX.jpg"); /* Add your image path here */
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
-           
         }
 
         .container {
             display: flex;
         }
 
-        
         h1 {
             color: whitesmoke;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -51,15 +48,12 @@
             padding: 10px;
             overflow: hidden;
             background-color: cadetblue;
-            
         }
 
         li {
             float: right;
         }
 
-        
-        
         li a {
             display: block;
             color: white;
@@ -71,11 +65,11 @@
         li a:hover {
             background-color: whitesmoke;
         }
+
         h4 {
             text-align: center;
             display: block;
-             color: white;
-            
+            color: white;
         }
 
         form {
@@ -126,41 +120,38 @@
             <li><a href="#home">Home</a></li>
         </ul>
     </nav>
-    
+
     <h1>Study Group Planner</h1>
-    <h4>
-        Create a profile below to get started!
-    </h4>   
+    <h4>Create a profile below to get started!</h4>   
 
-
-
-    <! –– Below is all my info on the form ––>
+    <!-- Below is all my info on the form -->
     <form id="profileForm">
-        <div>
+        <div style="padding-right: 30px;">
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" required>
         </div>
-        <div>
+        <div style="padding-right: 35px;">
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" required>
         </div>
-        <div>
+         <div style="padding-right: 30px;">
             <label for="major">Major:</label>
             <input type="text" name="major" id="major" required>
         </div>
-        <div>
+        <div style="padding-right: 30px;">
             <label for="year">Year:</label>
             <input type="text" name="year" id="year" required>
         </div>
-        <div>
+        <div style="padding-right: 30px;">
             <label for="interests">Interests:</label>
             <input type="text" name="interests" id="interests" required>
         </div>
-        <div>
+        <div style="padding-right: 30px;">
             <label for="courses">Courses:</label>
             <input type="text" name="courses" id="courses" required>
         </div>
-        <div>
+
+        <div style="padding-right: 35px;">
             <label for="profilePicture">Profile Picture:</label>
             <input type="file" name="profilePicture" id="profilePicture" accept="image/*" required>
         </div>
@@ -168,8 +159,8 @@
     </form>
 
     <script>
-        document.getElementById('profileForm').onsubmit = (e) => {
-            e.preventDefault(); 
+        document.getElementById('profileForm').onsubmit = function(e) {
+            e.preventDefault(); // Prevent the default form submission
 
             const username = e.target.username.value;
             const email = e.target.email.value;
@@ -177,30 +168,46 @@
             const year = e.target.year.value;
             const interests = e.target.interests.value;
             const courses = e.target.courses.value;
-            const profilePicture = e.target.profilePicture.files[0]; 
+            const profilePicture = e.target.profilePicture.files[0];
 
             const reader = new FileReader();
             reader.onload = function(event) {
-                localStorage.setItem('userProfile', JSON.stringify({
+                const userProfile = {
                     username,
                     email,
                     major,
                     year,
                     interests,
                     courses,
-                    profilePicture: event.target.result // Save the base64 string
-                }));
+                    profilePicture: event.target.result // Save the image data
+                };
 
+                // Save the user profile to localStorage
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+
+                // Redirect to profile page
                 window.location.href = 'profile.html';
             };
 
             if (profilePicture) {
-                reader.readAsDataURL(profilePicture);
+                reader.readAsDataURL(profilePicture); // Read the file
+            } else {
+                // Handle case when no picture is provided
+                const userProfile = {
+                    username,
+                    email,
+                    major,
+                    year,
+                    interests,
+                    courses,
+                    profilePicture: 'default-profile.jpg' // Set a default picture if none provided
+                };
+                localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                window.location.href = 'profile.html';
             }
         };
     </script>
 </body>
-
 </html>
 
 
