@@ -18,7 +18,7 @@
     <style>
         body {
             font-family: Calibri, 'Trebuchet MS', sans-serif;
-            background-color: powderblue;
+            background-color: #2571CC;
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
@@ -47,7 +47,7 @@
             margin: 0;
             padding: 10px;
             overflow: hidden;
-            background-color: cadetblue;
+            background-color: #DCD33E;
         }
 
         li {
@@ -63,7 +63,7 @@
         }
 
         li a:hover {
-            background-color: whitesmoke;
+            background-color: #236AC0;
         }
 
         h4 {
@@ -116,16 +116,15 @@
     <nav> 
         <ul>
             <li><a href="profile.html">Profile</a></li>
-            <li><a href="#about">About</a></li>
             <li><a href="#home">Home</a></li>
         </ul>
     </nav>
 
     <h1>Study Group Planner</h1>
-    <h4>Create a profile below to get started!</h4>   
+    <h4>Hey Pitt students, if you want some study friends for any subject, create a profile below to get started!</h4>   
 
     <!-- Below is all my info on the form -->
-    <form id="profileForm">
+    <form id="profileForm" action="/create_profile" method="POST">
         <div style="padding-right: 30px;">
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" required>
@@ -158,6 +157,10 @@
         <button type="submit">Create Profile</button>
     </form>
 
+    <img src="https://www.usnews.com/dims4/USNEWS/583085f/17177859217/resize/800x540%3E/quality/85/?url=https%3A%2F%2Fmedia.beam.usnews.com%2Fcb%2F27750e68ae1da0cb0935e0a9b92eba%2Fcollege-photo_31411.jpg" alt="pitt" style="padding-top: 50px; padding-bottom: 0px; width:500px;height:200px;">
+    <img src="https://www.tailgaterconcierge.com/wp-content/uploads/2022/04/1626963_web1_gtr-Pittfb02-090119.jpg" alt="pitt" style="padding-top: 50px; padding-left: 0px;  padding-bottom: 0px; width:500px;height:200px;">
+
+    <!-- Move script to the end -->
     <script>
         document.getElementById('profileForm').onsubmit = function(e) {
             e.preventDefault(); // Prevent the default form submission
@@ -209,5 +212,3 @@
     </script>
 </body>
 </html>
-
-
