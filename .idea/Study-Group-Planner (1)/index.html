@@ -19,8 +19,11 @@
         body {
             font-family: Calibri, 'Trebuchet MS', sans-serif;
             background-color: powderblue;
+            background-image: url("StockSnap_UYBA4SDOBX.jpg"); /* Add your image path here */
             background-attachment: fixed;
             background-size: cover;
+            background-position: center;
+           
         }
 
         .container {
@@ -48,6 +51,7 @@
             padding: 10px;
             overflow: hidden;
             background-color: cadetblue;
+            
         }
 
         li {
@@ -153,6 +157,10 @@
             <input type="text" name="interests" id="interests" required>
         </div>
         <div>
+            <label for="courses">Courses:</label>
+            <input type="text" name="courses" id="courses" required>
+        </div>
+        <div>
             <label for="profilePicture">Profile Picture:</label>
             <input type="file" name="profilePicture" id="profilePicture" accept="image/*" required>
         </div>
@@ -168,6 +176,7 @@
             const major = e.target.major.value;
             const year = e.target.year.value;
             const interests = e.target.interests.value;
+            const courses = e.target.courses.value;
             const profilePicture = e.target.profilePicture.files[0]; 
 
             const reader = new FileReader();
@@ -178,6 +187,7 @@
                     major,
                     year,
                     interests,
+                    courses,
                     profilePicture: event.target.result // Save the base64 string
                 }));
 
