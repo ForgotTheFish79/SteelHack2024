@@ -6,8 +6,8 @@
     <title>User Profile</title>
     <style>
         body {
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            background-color: powderblue;
+            font-family: Calibri, 'Trebuchet MS', sans-serif;
+            background-color: #2571CC;
             background-attachment: fixed;
             background-size: cover;
         }
@@ -15,11 +15,14 @@
             text-align: center;
             margin-top: 50px;
         }
+        h1 {
+            color: whitesmoke;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 60px;
+            text-align: center;
+            color: white;
+        }
 
-        
-
-
-        
         .profile {
             display: inline-block;
             background-color: white;
@@ -33,50 +36,44 @@
             height: 100px;
         }
         nav {
-            background-color: cadetblue; 
+            background-color: #DCD33E; 
             padding: 10px; 
         }
         nav ul {
-            list-style-type: none; 
-            padding: 0; 
-            margin: 0; 
-            text-align: center; 
+            list-style-type: none;
+            margin: 0;
+            padding: 10px;
+            overflow: hidden;
+            background-color: #DCD33E;
+
         }
-        nav ul li {
-            display: inline; 
-            margin-right: 20px; 
-            
+        nav li {
+            float: right;
+
         }
-        nav ul li a {
-            text-decoration: none; 
-            color: white; 
-            font-weight: bold; 
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 14px 27px;
         }
-        nav ul li a:hover {
-            text-decoration: underline; 
-            background-color: whitesmoke;
+        nav li a:hover {
+            background-color: #236AC0;
         }
     </style>
 </head>
 <body>
     <nav> 
         <ul>
-            <li><a href="index.html">Home</a></li>
             <li><a href="profile.html">Profile</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="index.html">Home</a></li>
         </ul>
     </nav>
 
 
-
-
-
-
-
-
-
     <div class="profile-container">
-        <h1>Profile</h1>
+        <h1 >Profile</h1>
         <div class="profile">
             <img src="default-profile.jpg" alt="Profile Picture" class="profile-picture" id="profilePicture">
             <p class="username" id="username" style="color:black;">Username: </p>
@@ -89,21 +86,10 @@
 
     </div>
 
-   
-
-
-
-    
     <div class="profiles-container" id="profilesContainer">
         <h2>All User Profiles</h2>
     </div>
 
-
-
-
-
-
-    
     <script>
         window.onload = function() {
             const userProfile = JSON.parse(localStorage.getItem('userProfile'));
