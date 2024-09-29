@@ -22,38 +22,24 @@ Now you should be able to run your code in the console normally.
 genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-# create app
-app = Flask(__name__)
+# change data here
+print("Enter student info:")
+name = "Chris"
+email = "abc123@gmail.com"
+major = "computer science"
+year = 2027
+interests = {"Math", "Hacking"}
+courses = {"Programming", "Data structures"}
 
-# initialize variables
-name = ""
-major = ""
-year = 0
-interests = ""
-courses = []
+# create student object
+given_student = Student.Student(courses, name, year, major, interests)
+print(given_student)
 
-# creates user profile when button is clicked
-@app.route('/create_profile', methods=['POST'])
-def create_profile():
-    # get form data
-    name = request.form['username']
-    email = request.form['email']
-    major = request.form['major']
-    year = request.form['year']
-    interests = request.form['interests']
-    courses = request.form['courses']
-    return (f"Profile created for {name} with email {email}. Major: {major}, "
-             "Year: {year}, Interests: {interests}, Courses: {courses}.")
-    
 # method to read in text from file
 def read_file(file):
     with open(file, 'r') as file:
         text = file.read()
     return text
-
-# create student object
-given_student = Student.Student(courses, name, year, major, interests)
-print(given_student)
 
 # read in files with student info as strings
 all_students = read_file("SQLTables/students.sql")
@@ -61,6 +47,7 @@ all_courses = read_file("SQLTables/courses.sql")
 student_courses = read_file("SQLTables/student_courses.sql")
 all_interests = read_file("SQLTables/interests.sql")
 student_interests = read_file("SQLTables/student_interests.sql")
+
 
 # create specific prompt with given info for Gemini
 prompt = ("\nLooking at these SQL files, which 3 students would work "
@@ -74,8 +61,24 @@ prompt = ("\nLooking at these SQL files, which 3 students would work "
         "\nOnly answer with the names of three other students "
         "in a single sentence.")
 
-print(f"\n{prompt}\n")
-
 # prompt model
 response = model.generate_content(prompt)
 print(response.text)
+
+# create app
+# app = Flask(__name__)
+
+"""
+# creates user profile when button is clicked
+@app.route('/create_profile', methods=['POST'])
+def create_profile():
+    # get form data
+    name = request.form['username']
+    email = request.form['email']
+    major = request.form['major']
+    year = request.form['year']
+    interests = request.form['interests']
+    courses = request.form['courses']
+    return (f"Profile created for {name} with email {email}. Major: {major}, "
+             "Year: {year}, Interests: {interests}, Courses: {courses}.")
+"""
