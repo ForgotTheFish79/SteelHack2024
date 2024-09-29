@@ -1,6 +1,7 @@
 import google.generativeai as genai
 import os
 import Student
+from flask import Flask, request, render_template
 
 '''
 We are using Python 3.10.
@@ -21,58 +22,64 @@ Now you should be able to run your code in the console normally.
 genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-# get student info from HTML
-"""
-add code here
-add code here
-add code here
-add code here
-add code here
-"""
-# sample info below
-courses = {"DSA 1"}
-name = "Chris"
-year = 2027
-major = "Computer Science"
-given_student = Student.Student(courses, name, year, major)
-print(given_student)
+# get student info from HTML website
+app = Flask(__name__) # initialize app
 
+@app.route('/')
+def home():
+    return render_template("index.html")
+
+name, major, year, interests, courses = "" # initialize variables
+
+# extracting user data
+@app.route('/submit', methods=["POST"])
+def submit():
+    name = request.form.get('username')
+    major = request.form.get('major')
+    year = request.form.get('year')
+    interests = request.form.get('interests')
+    courses = request.form.get('courses')
+    # get output
+    return render_template('profile.html', response=get_gemini_API_response())
+    
+# run Flask
+if __name__ == "__main__":
+    app.run(debug=True)
+    
 # method to read in text from file
 def read_file(file):
     with open(file, 'r') as file:
         sql_script = file.read()
     return sql_script
 
-# read in files with student info as Strings
-all_students = read_file("SQLTables/students.sql")
-all_courses = read_file("SQLTables/courses.sql")
-student_courses = read_file("SQLTables/student_courses.sql")
-all_interests = read_file("SQLTables/interests.sql")
-student_interests = read_file("SQLTables/student_interests.sql")
+# code to send messsage to gemini
+def get_gemini_API_response():
+    # create student object
+    given_student = Student.Student(courses, name, year, major, interests)
+    print(given_student)
 
-# create specific prompt with given info for Gemini
-prompt = ("\nLooking at these SQL files, which 3 students would work best with "
-         "the given student?\n"
-         f"File of all students: \n{all_students}\n" 
-         f"File of all courses: \n{all_courses}\n" 
-         f"File of classes each student is taking: \n{student_courses}\n"
-         f"File of all interests: \n{all_interests}\n"
-         f"File of student intersts: \n{student_interests}\n"
-         f"Given student: \n{given_student}\n"
-         "\nOnly answer with the names of three other students "
-         "in a single sentence.")
+    # read in files with student info as strings
+    all_students = read_file("SQLTables/students.sql")
+    all_courses = read_file("SQLTables/courses.sql")
+    student_courses = read_file("SQLTables/student_courses.sql")
+    all_interests = read_file("SQLTables/interests.sql")
+    student_interests = read_file("SQLTables/student_interests.sql")
 
-print(f"\n{prompt}\n")
+    # create specific prompt with given info for Gemini
+    prompt = ("\nLooking at these SQL files, which 3 students would work best with "
+            "the given student?\n"
+            f"File of all students: \n{all_students}\n" 
+            f"File of all courses: \n{all_courses}\n" 
+            f"File of classes each student is taking: \n{student_courses}\n"
+            f"File of all interests: \n{all_interests}\n"
+            f"File of student intersts: \n{student_interests}\n"
+            f"Given student: \n{given_student}\n"
+            "\nOnly answer with the names of three other students "
+            "in a single sentence.")
 
-# prompt model
-response = model.generate_content(prompt)
-print(response.text)
+    print(f"\n{prompt}\n")
 
-# send output to HTML
-"""
-add code here
-add code here
-add code here
-add code here
-add code here
-"""
+    # prompt model
+    response = "Gemini API response:", model.generate_content(prompt)
+    print(response.text)
+    return response
