@@ -25,11 +25,6 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 # create app
 app = Flask(__name__)
 
-# home page route
-@app.route('/')
-def home():
-    return render_template('index.html')
-
 # initialize variables
 name = ""
 major = ""
@@ -49,10 +44,6 @@ def create_profile():
     courses = request.form['courses']
     return f"Profile created for {name} with email {email}. Major: {major}, 
              Year: {year}, Interests: {interests}, Courses: {courses}."
-
-# runs if main script
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
     
 # method to read in text from file
 def read_file(file):
