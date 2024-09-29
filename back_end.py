@@ -30,17 +30,6 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-# handle POST requests (form data)
-@app.route('/submit', methods=['POST'])
-def submit():
-    data = request.form['data']  # Get data from the form
-    print(f'Received data: {data}')  # Print data to the console
-    return f'Data received: {data}'
-
-# runs if main script
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-
 # initialize variables
 name = ""
 major = ""
@@ -48,6 +37,25 @@ year = 0
 interests = ""
 courses = []
 
+
+# handle POST requests (when the submit button is clicked)
+@app.route('/submit', methods=['POST'])
+def submit():
+    # get form data
+    name = request.form['username']
+    email = request.form['email']
+    major = request.form['major']
+    year = request.form['year']
+    interests = request.form['interests']
+    courses = request.form['courses']
+    print(f'Received data: {data}')  # Print data to the console
+    return f"Profile created for {name} with email {email}. Major: {major}, 
+             Year: {year}, Interests: {interests}, Courses: {courses}."
+
+# runs if main script
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    
 # method to read in text from file
 def read_file(file):
     with open(file, 'r') as file:
@@ -82,7 +90,3 @@ print(f"\n{prompt}\n")
 # prompt model
 response = "Gemini API response:", model.generate_content(prompt)
 print(response.text)
-
-data = {response}
-# send POST request
-response = requests.post(url, data=data)
