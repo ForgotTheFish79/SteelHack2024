@@ -22,64 +22,67 @@ Now you should be able to run your code in the console normally.
 genai.configure(api_key=os.environ["API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-# get student info from HTML website
-app = Flask(__name__) # initialize app
+# create app
+app = Flask(__name__)
 
+# home page route
 @app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template('index.html')
 
-name, major, year, interests, courses = "" # initialize variables
-
-# extracting user data
-@app.route('/submit', methods=["POST"])
+# handle POST requests (form data)
+@app.route('/submit', methods=['POST'])
 def submit():
-    name = request.form.get('username')
-    major = request.form.get('major')
-    year = request.form.get('year')
-    interests = request.form.get('interests')
-    courses = request.form.get('courses')
-    # get output
-    return render_template('profile.html', response=get_gemini_API_response())
-    
-# run Flask
-if __name__ == "__main__":
-    app.run(debug=True)
-    
+    data = request.form['data']  # Get data from the form
+    print(f'Received data: {data}')  # Print data to the console
+    return f'Data received: {data}'
+
+# runs if main script
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+
+# initialize variables
+name = ""
+major = ""
+year = 0
+interests = ""
+courses = []
+
 # method to read in text from file
 def read_file(file):
     with open(file, 'r') as file:
         sql_script = file.read()
     return sql_script
 
-# code to send messsage to gemini
-def get_gemini_API_response():
-    # create student object
-    given_student = Student.Student(courses, name, year, major, interests)
-    print(given_student)
+# create student object
+given_student = Student.Student(courses, name, year, major, interests)
+print(given_student)
 
-    # read in files with student info as strings
-    all_students = read_file("SQLTables/students.sql")
-    all_courses = read_file("SQLTables/courses.sql")
-    student_courses = read_file("SQLTables/student_courses.sql")
-    all_interests = read_file("SQLTables/interests.sql")
-    student_interests = read_file("SQLTables/student_interests.sql")
+# read in files with student info as strings
+all_students = read_file("SQLTables/students.sql")
+all_courses = read_file("SQLTables/courses.sql")
+student_courses = read_file("SQLTables/student_courses.sql")
+all_interests = read_file("SQLTables/interests.sql")
+student_interests = read_file("SQLTables/student_interests.sql")
 
-    # create specific prompt with given info for Gemini
-    prompt = ("\nLooking at these SQL files, which 3 students would work best with "
-            "the given student?\n"
-            f"File of all students: \n{all_students}\n" 
-            f"File of all courses: \n{all_courses}\n" 
-            f"File of classes each student is taking: \n{student_courses}\n"
-            f"File of all interests: \n{all_interests}\n"
-            f"File of student intersts: \n{student_interests}\n"
-            f"Given student: \n{given_student}\n"
-            "\nOnly answer with the names of three other students "
-            "in a single sentence.")
+# create specific prompt with given info for Gemini
+prompt = ("\nLooking at these SQL files, which 3 students would work "
+        " best with the given student?\n"
+        f"File of all students: \n{all_students}\n" 
+        f"File of all courses: \n{all_courses}\n" 
+        f"File of classes each student is taking: \n{student_courses}\n"
+        f"File of all interests: \n{all_interests}\n"
+        f"File of student intersts: \n{student_interests}\n"
+        f"Given student: \n{given_student}\n"
+        "\nOnly answer with the names of three other students "
+        "in a single sentence.")
 
-    print(f"\n{prompt}\n")
+print(f"\n{prompt}\n")
 
-    # prompt model
-    response = "Gemini API response:", model.generate_content(prompt)
-    print(response.text)
-    return response
+# prompt model
+response = "Gemini API response:", model.generate_content(prompt)
+print(response.text)
+
+data = {response}
+# send POST request
+response = requests.post(url, data=data)
