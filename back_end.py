@@ -1,7 +1,7 @@
 import google.generativeai as genai
 import os
 import Student
-from flask import Flask, request, render_template
+from flask import Flask, request
 
 '''
 We are using Python 3.10.
@@ -42,14 +42,14 @@ def create_profile():
     year = request.form['year']
     interests = request.form['interests']
     courses = request.form['courses']
-    return f("Profile created for {name} with email {email}. Major: {major}, "
+    return (f"Profile created for {name} with email {email}. Major: {major}, "
              "Year: {year}, Interests: {interests}, Courses: {courses}.")
     
 # method to read in text from file
 def read_file(file):
     with open(file, 'r') as file:
-        sql_script = file.read()
-    return sql_script
+        text = file.read()
+    return text
 
 # create student object
 given_student = Student.Student(courses, name, year, major, interests)
