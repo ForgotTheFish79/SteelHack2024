@@ -42,8 +42,8 @@ def create_profile():
     year = request.form['year']
     interests = request.form['interests']
     courses = request.form['courses']
-    return f"Profile created for {name} with email {email}. Major: {major}, 
-             Year: {year}, Interests: {interests}, Courses: {courses}."
+    return f("Profile created for {name} with email {email}. Major: {major}, "
+             "Year: {year}, Interests: {interests}, Courses: {courses}.")
     
 # method to read in text from file
 def read_file(file):
@@ -77,5 +77,5 @@ prompt = ("\nLooking at these SQL files, which 3 students would work "
 print(f"\n{prompt}\n")
 
 # prompt model
-response = "Gemini API response:", model.generate_content(prompt)
+response = model.generate_content(prompt)
 print(response.text)
