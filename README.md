@@ -1,9 +1,10 @@
 # Study Group Planner
 
-## Uma Patel, up2040@nyu.edu 
-## Christopher Achkar, caa152@pitt.edu 
-## Jonathan Farah, jkf4068@nyu.edu 
-## Christopher Fu, chf132@pitt.edu
+### Created by:
+- Uma Patel, up2040@nyu.edu 
+- Christopher Achkar, caa152@pitt.edu 
+- Jonathan Farah, jkf4068@nyu.edu 
+- Christopher Fu, chf132@pitt.edu
 
 This project was made for SteelHacks 2024. We worked on the “Beginner” and “Pitt Inspired Demo powered by Gemini API” tracks.
 
