@@ -13,4 +13,4 @@ The program starts at our front-end website, which utilizes HTML, CSS, and JavaS
 
 We have a Python Student class, created as a guide and formerly used to store data.
 
-We envision this project helping new freshmen and transfer students find a potential friend group of people who share coursework.
+We envision this project helping new freshmen and transfer students find a potential friend group of people who share coursework and interests.
