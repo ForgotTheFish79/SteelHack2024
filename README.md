@@ -5,7 +5,7 @@
 ## Jonathan Farah, jkf4068@nyu.edu 
 ## Christopher Fu, chf132@pitt.edu
 
-We worked on the “Beginner” and “Pitt Inspired Demo powered by Gemini API” tracks.
+This project was made for SteelHacks 2024. We worked on the “Beginner” and “Pitt Inspired Demo powered by Gemini API” tracks.
 
 This project is a study group planner that takes in user’s information such as name, interests, and courses and then outputs a recommended study group.
 
